@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen(opts =>
         Description = "This is our description",
         TermsOfService = new Uri("https://example.com/terms")
     });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    opts.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFile));
 });
 
 var app = builder.Build();
